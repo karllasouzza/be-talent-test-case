@@ -1,0 +1,8 @@
+services:
+  gateways-mock:
+    image: matheusprotzen/gateways-mock
+    container_name: gateways-mock-be-talent-test-case
+    restart: always
+    ports:
+      - "3001:3001"
+      - "3002:3002"

@@ -1,0 +1,30 @@
+include:
+  - docker/mysql.yaml
+  - docker/gateways-mock.yaml
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app-be-talent-test-case
+    restart: always
+    ports:
+      - "${APP_PORT:-3333}:3333"
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=3333
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - APP_KEY=${APP_KEY}
+      - APP_URL=${APP_URL:-http://localhost:3333}
+      - SESSION_DRIVER=${SESSION_DRIVER:-cookie}
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - CORS_ORIGIN=${CORS_ORIGIN:-*}
+    depends_on:
+      mysql:
+        condition: service_healthy
