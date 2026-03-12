@@ -8,7 +8,7 @@ router
       .group(() => {
         router.post('signup', [controllers.Users, 'store'])
         router.post('login', [controllers.AccessToken, 'store'])
-        router.post('logout', [controllers.AccessToken, 'destroy']).use(middleware.auth())
+        router.delete('logout', [controllers.AccessToken, 'destroy']).use(middleware.auth())
       })
       .prefix('auth')
       .as('auth')
