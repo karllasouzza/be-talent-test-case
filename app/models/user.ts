@@ -8,11 +8,7 @@ export default class User extends compose(UserSchema, withAuthFinder(hash)) {
   static accessTokens = DbAccessTokensProvider.forModel(User)
   declare currentAccessToken?: AccessToken
 
-  get initials() {
-    const [first, last] = this.fullName ? this.fullName.split(' ') : this.email.split('@')
-    if (first && last) {
-      return `${first.charAt(0)}${last.charAt(0)}`.toUpperCase()
-    }
-    return `${first.slice(0, 2)}`.toUpperCase()
+  getTokenAbilities(): string[] {
+    return this.currentAccessToken?.abilities || []
   }
 }

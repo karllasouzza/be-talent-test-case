@@ -3,7 +3,7 @@ import { signupValidator } from '#validators/user'
 import type { HttpContext } from '@adonisjs/core/http'
 import UserTransformer from '#transformers/user_transformer'
 
-export default class NewAccountController {
+export default class UsersController {
   async store({ request, serialize }: HttpContext) {
     const { fullName, email, password } = await request.validateUsing(signupValidator)
 
@@ -14,5 +14,11 @@ export default class NewAccountController {
       user: UserTransformer.transform(user),
       token: token.value!.release(),
     })
+  }
+
+  async showAll({ auth, serialize }: HttpContext) {
+    const users = await User.query().whereNot('id', auth.user!.id)
+
+    return serialize(users.map((user) => UserTransformer.transform(user)))
   }
 }
