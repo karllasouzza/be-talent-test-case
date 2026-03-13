@@ -1932,6 +1932,7 @@ __metadata:
     "@vinejs/vine": "npm:^4.3.0"
     better-sqlite3: "npm:^12.6.2"
     eslint: "npm:^10.0.2"
+    fast-check: "npm:^4.6.0"
     hot-hook: "npm:^1.0.0"
     luxon: "npm:^3.7.2"
     mysql2: "npm:^3.19.1"
@@ -2890,6 +2891,15 @@ __metadata:
   version: 3.1.3
   resolution: "exponential-backoff@npm:3.1.3"
   checksum: 10c0/77e3ae682b7b1f4972f563c6dbcd2b0d54ac679e62d5d32f3e5085feba20483cf28bd505543f520e287a56d4d55a28d7874299941faf637e779a1aa5994d1267
+  languageName: node
+  linkType: hard
+
+"fast-check@npm:^4.6.0":
+  version: 4.6.0
+  resolution: "fast-check@npm:4.6.0"
+  dependencies:
+    pure-rand: "npm:^8.0.0"
+  checksum: 10c0/3a42393800c3353584b4b7ae14e7bcfe7fc93431690730deb8f3ebe51e026a96567fdfd3ea8b47d1d2a601cfb421492133827974dd4ef2ba6c0b0082db0c8ccd
   languageName: node
   linkType: hard
 
@@ -4624,6 +4634,13 @@ __metadata:
   version: 2.3.1
   resolution: "punycode@npm:2.3.1"
   checksum: 10c0/14f76a8206bc3464f794fb2e3d3cc665ae416c01893ad7a02b23766eb07159144ee612ad67af5e84fa4479ccfe67678c4feb126b0485651b302babf66f04f9e9
+  languageName: node
+  linkType: hard
+
+"pure-rand@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "pure-rand@npm:8.0.0"
+  checksum: 10c0/d56d9782a86cb88c4740f64f9a4fe528fff7100a9d6dba6238a7c7aa5932756dfafc3b56240dfdde6610eaeda35e004aa223bfbbae15cc65d39ae578233e6636
   languageName: node
   linkType: hard
 

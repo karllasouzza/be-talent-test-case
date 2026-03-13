@@ -3,6 +3,7 @@ node_modules
 build
 tmp/*
 !tmp/.gitkeep
+.adonisjs
 
 # Secrets
 .env
@@ -24,4 +25,3 @@ yarn-error.log
 
 # Platform specific
 .DS_Store
-.adonisjs

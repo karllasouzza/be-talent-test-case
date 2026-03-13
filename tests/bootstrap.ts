@@ -15,14 +15,6 @@ declare module '@japa/api-client/types' {
   interface RoutesRegistry extends Registry {}
 }
 
-/**
- * This file is imported by the "bin/test.ts" entrypoint file
- */
-
-/**
- * Configure Japa plugins in the plugins array.
- * Learn more - https://japa.dev/docs/runner-config#plugins-optional
- */
 export const plugins: Config['plugins'] = [
   assert(),
   pluginAdonisJS(app),
@@ -48,7 +40,7 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
  * Learn more - https://japa.dev/docs/test-suites#lifecycle-hooks
  */
 export const configureSuite: Config['configureSuite'] = (suite) => {
-  if (['browser', 'functional', 'e2e'].includes(suite.name)) {
+  if (['functional', 'e2e'].includes(suite.name)) {
     return suite.setup(() => testUtils.httpServer().start())
   }
 }
