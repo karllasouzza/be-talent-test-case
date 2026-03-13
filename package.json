@@ -18,20 +18,20 @@
     "typecheck": "tsc --noEmit"
   },
   "imports": {
-    "#controllers/*": "./app/controllers/*.js",
-    "#exceptions/*": "./app/exceptions/*.js",
-    "#models/*": "./app/models/*.js",
-    "#mails/*": "./app/mails/*.js",
-    "#services/*": "./app/services/*.js",
-    "#listeners/*": "./app/listeners/*.js",
-    "#events/*": "./app/events/*.js",
+    "#controllers/*": "./src/http/controllers/*.js",
+    "#exceptions/*": "./src/http/exceptions/*.js",
+    "#models/*": "./src/infrastructure/persistence/lucid/models/*.js",
+    "#mails/*": "./src/mails/*.js",
+    "#services/*": "./src/services/*.js",
+    "#listeners/*": "./src/listeners/*.js",
+    "#events/*": "./src/events/*.js",
     "#generated/*": "./.adonisjs/server/*.js",
-    "#middleware/*": "./app/middleware/*.js",
-    "#transformers/*": "./app/transformers/*.js",
-    "#validators/*": "./app/validators/*.js",
+    "#middleware/*": "./src/http/middleware/*.js",
+    "#transformers/*": "./src/http/transformers/*.js",
+    "#validators/*": "./src/http/validators/*.js",
     "#providers/*": "./providers/*.js",
-    "#policies/*": "./app/policies/*.js",
-    "#abilities/*": "./app/abilities/*.js",
+    "#policies/*": "./src/policies/*.js",
+    "#abilities/*": "./src/abilities/*.js",
     "#database/*": "./database/*.js",
     "#tests/*": "./tests/*.js",
     "#start/*": "./start/*.js",
@@ -73,8 +73,8 @@
   },
   "hotHook": {
     "boundaries": [
-      "./app/controllers/**/*.ts",
-      "./app/middleware/*.ts"
+      "./src/http/controllers/**/*.ts",
+      "./src/http/middleware/*.ts"
     ]
   },
   "prettier": "@adonisjs/prettier-config"

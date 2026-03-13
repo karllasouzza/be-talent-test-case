@@ -72,7 +72,13 @@ export default defineConfig({
   hooks: {
     init: [
       indexEntities({
-        transformers: { enabled: true },
+        controllers: {
+          source: 'src/http/controllers',
+        },
+        transformers: {
+          enabled: true,
+          source: 'src/http/transformers',
+        },
       }),
       generateRegistry(),
     ],
