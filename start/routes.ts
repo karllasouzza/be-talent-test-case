@@ -23,10 +23,10 @@ router
 
     router
       .group(() => {
-        router.get('/profile', [controllers.Profile, 'show'])
+        router.get('/', [controllers.Self, 'show'])
       })
-      .prefix('account')
-      .as('profile')
+      .prefix('self')
+      .as('self')
       .use(middleware.auth())
   })
   .prefix('/api/v1')
