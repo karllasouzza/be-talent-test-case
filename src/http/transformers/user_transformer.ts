@@ -1,4 +1,4 @@
-import type User from '#models/user'
+import type User from '../../infrastructure/persistence/lucid/models/user.ts'
 import { BaseTransformer } from '@adonisjs/core/transformers'
 
 export default class UserTransformer extends BaseTransformer<User> {
