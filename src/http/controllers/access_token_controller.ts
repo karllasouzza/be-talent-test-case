@@ -1,14 +1,16 @@
-import User from '#models/user'
-import { loginValidator } from '#validators/user'
+import User from '../../infrastructure/persistence/lucid/models/user.ts'
+import { loginValidator } from '../validators/users.ts'
 import type { HttpContext } from '@adonisjs/core/http'
-import UserTransformer from '#transformers/user_transformer'
+import UserTransformer from '../transformers/user_transformer.ts'
+import { RoleAbilitiesService } from '../../domain/users/role/index.ts'
 
 export default class AccessTokenController {
   async store({ request, serialize }: HttpContext) {
     const { email, password } = await request.validateUsing(loginValidator)
 
     const user = await User.verifyCredentials(email, password)
-    const token = await User.accessTokens.create(user, [...user.getTokenAbilities()])
+    const abilities = RoleAbilitiesService.for(user.typedRole)
+    const token = await User.accessTokens.create(user, abilities)
 
     return serialize({
       user: UserTransformer.transform(user),
