@@ -16,7 +16,7 @@ export type GetManyUsersOutput = User[]
 const log = logger.child({ useCase: 'GetManyUsersUseCase' })
 
 export class GetManyUsersUseCase {
-  private constructor(private readonly repository: UsersRepository) {}
+  constructor(private readonly repository: UsersRepository) {}
 
   private getAllFilterProperties(query: GetManyUserInput) {
     const filter: GetManyUserInput = {}

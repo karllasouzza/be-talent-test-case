@@ -6,7 +6,7 @@ import { type UsersRepository } from '../../repositories/users_repository.ts'
 type DeleteUserByIdOutput = Either<CreateResourceError, boolean>
 
 export class DeleteUserByIdUseCase {
-  private constructor(
+  constructor(
     private readonly repository: UsersRepository,
     private readonly log = logger.child({ useCase: 'DeleteUserByIdUseCase' })
   ) {}

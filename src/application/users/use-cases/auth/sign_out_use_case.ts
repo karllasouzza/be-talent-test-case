@@ -8,7 +8,7 @@ import { type TokenRepository } from '../../repositories/token_repository.ts'
 type SignOutOutput = Either<DatabaseError | SignOutError, void>
 
 export class SignOutUseCase {
-  private constructor(
+  constructor(
     private readonly tokenRepository: TokenRepository,
     private readonly log = logger.child({ useCase: 'SignOutUseCase' })
   ) {}

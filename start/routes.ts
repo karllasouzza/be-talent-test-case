@@ -1,12 +1,12 @@
 import router from '@adonisjs/core/services/router'
-import registerAuthRoutes from '#http/routes/auth_routes'
-import registerUsersRoutes from '#http/routes/users_routes'
-import registerSelfRoutes from '#http/routes/self_routes'
+import authRoutes from '#http/routes/auth_routes'
+import usersRoutes from '#http/routes/users_routes'
+import selfRoutes from '#http/routes/self_routes'
 
 router
   .group(() => {
-    registerAuthRoutes()
-    registerUsersRoutes()
-    registerSelfRoutes()
+    authRoutes()
+    usersRoutes()
+    selfRoutes()
   })
   .prefix('/api/v1')

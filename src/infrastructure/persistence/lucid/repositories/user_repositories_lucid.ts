@@ -17,7 +17,7 @@ import type {
 } from '#application-users/repositories/users_repository'
 
 export class UsersRepositoryLucid implements UsersRepository {
-  private constructor(
+  constructor(
     private readonly client: typeof db,
     private readonly log = logger.child({ repository: 'UsersRepositoryLucid' })
   ) {}

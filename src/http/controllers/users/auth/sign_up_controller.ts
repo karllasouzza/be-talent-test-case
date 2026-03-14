@@ -4,7 +4,7 @@ import { signUpValidator } from '#validators/auth'
 import { type SignUpUseCase } from '#application-users/use-cases/auth/sign_up_use_case'
 
 export class SignUpController {
-  private constructor(private readonly useCase: SignUpUseCase) {}
+  constructor(private readonly useCase: SignUpUseCase) {}
 
   public async handler({ request, serialize, response }: HttpContext) {
     const { email, password } = await request.validateUsing(signUpValidator)

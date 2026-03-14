@@ -4,7 +4,7 @@ import UserTransformer from '#transformers/user_transformer'
 import type { SignInUseCase } from '#application-users/use-cases/auth/sign_in_use_case'
 
 export class SignInController {
-  private constructor(private readonly useCase: SignInUseCase) {}
+  constructor(private readonly useCase: SignInUseCase) {}
 
   public async handler({ request, serialize, response }: HttpContext) {
     const { email, password } = await request.validateUsing(signInValidator)

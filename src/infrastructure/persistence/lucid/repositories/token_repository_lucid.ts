@@ -11,7 +11,7 @@ import type {
 } from '#application-users/repositories/token_repository'
 
 export class TokenRepositoryLucid implements TokenRepository {
-  private constructor(
+  constructor(
     private readonly client: typeof db,
     private readonly log = logger.child({ repository: 'TokenRepositoryLucid' })
   ) {}

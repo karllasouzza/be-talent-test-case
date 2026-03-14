@@ -5,7 +5,7 @@ import { UnauthorizedError } from '#core/errors/unauthorized_error'
 import { type DeleteUserByIdUseCase } from '#application-users/use-cases/management/delete_user_by_id_use_case'
 
 export default class DeleteUserByIdController {
-  private constructor(private readonly useCase: DeleteUserByIdUseCase) {}
+  constructor(private readonly useCase: DeleteUserByIdUseCase) {}
 
   private checkPermissions(auth: HttpContext['auth']) {
     if (!auth.user!.currentAccessToken?.allows(Ability.USERS_DELETE)) {

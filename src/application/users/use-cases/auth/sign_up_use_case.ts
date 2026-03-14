@@ -19,7 +19,7 @@ type SignUpOutput = Either<
 >
 
 export class SignUpUseCase {
-  private constructor(
+  constructor(
     private readonly usersRepository: UsersRepository,
     private readonly tokenRepository: TokenRepository,
     private readonly log = logger.child({ useCase: 'SignUpUseCase' })

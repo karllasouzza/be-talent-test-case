@@ -15,7 +15,7 @@ interface SignInInput {
 type SignInOutput = Either<UnauthorizedError | DatabaseError, { user: User; token: string }>
 
 export class SignInUseCase {
-  private constructor(
+  constructor(
     private readonly usersRepository: UsersRepository,
     private readonly tokenRepository: TokenRepository,
     private readonly log = logger.child({ useCase: 'SignInUseCase' })

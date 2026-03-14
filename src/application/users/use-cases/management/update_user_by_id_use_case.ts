@@ -16,7 +16,7 @@ type UpdateUserByIdOutput = User
 type Updates = Partial<Pick<User, 'fullName' | 'email' | 'password' | 'role'>>
 
 export class UpdateUserByIdUseCase {
-  private constructor(
+  constructor(
     private readonly repository: UsersRepository,
     private readonly log = logger.child({ useCase: 'UpdateUserByIdUseCase' })
   ) {}

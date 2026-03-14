@@ -15,7 +15,7 @@ export interface CreateUserInput {
 export type CreateUserOutput = User
 
 export class CreateUserUseCase {
-  private constructor(
+  constructor(
     private readonly repository: UsersRepository,
     private readonly log = logger.child({ useCase: 'CreateUserUseCase' })
   ) {}
