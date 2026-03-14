@@ -1,45 +1,41 @@
+import logger from '@adonisjs/core/services/logger'
+import type User from '#models/user'
 import { left, right, type Either } from '../../../../core/either/either.ts'
 import { type DatabaseError } from '../../../../core/errors/database_error.ts'
-import { type UnauthorizedError } from '../../../../core/errors/unauthorized_error.ts'
-import { SignUpError } from '../../../../core/errors/sign_up_error.ts'
+import { UnauthorizedError } from '../../../../core/errors/unauthorized_error.ts'
 import { RoleAbilitiesService } from '../../../../domain/users/role/role_abilities_service.ts'
-import type User from '#models/user'
 import { type UsersRepository } from '../../repositories/users_repository.ts'
-import logger from '@adonisjs/core/services/logger'
-import { Role } from '../../../../domain/users/role/role.ts'
+import { type TokenRepository } from '../../repositories/token_repository.ts'
 
 interface SignInInput {
   email: string
   password: string
-  fullName: string
 }
 
+type SignInOutput = Either<UnauthorizedError | DatabaseError, { user: User; token: string }>
+
 export class SignInUseCase {
-  private readonly log = logger.child({ useCase: 'SignInUseCase' })
+  private constructor(
+    private readonly usersRepository: UsersRepository,
+    private readonly tokenRepository: TokenRepository,
+    private readonly log = logger.child({ useCase: 'SignInUseCase' })
+  ) {}
 
-  constructor(private readonly usersRepository: UsersRepository) {}
-
-  async execute(
-    input: SignInInput
-  ): Promise<
-    Either<UnauthorizedError | DatabaseError | SignUpError, { user: User; token: string }>
-  > {
+  async execute(input: SignInInput): Promise<SignInOutput> {
     try {
-      const { email, password, fullName } = input
+      const { email, password } = input
 
-      const userResult = await this.usersRepository.create({
-        fullName,
-        email,
-        password,
-        role: Role.USER,
-      })
+      const userResult = await this.usersRepository.verifyCredentials({ email, password })
 
       if (userResult.isLeft()) return left(userResult.value)
 
-      this.log.debug('User created successfully during sign in', { user: userResult.value })
+      this.log.debug('User verified successfully during sign in', { user: userResult.value })
 
       const abilities = RoleAbilitiesService.for(userResult.value.typedRole)
-      const tokenResult = await this.usersRepository.createToken(userResult.value, abilities)
+      const tokenResult = await this.tokenRepository.createToken({
+        user: userResult.value,
+        abilities,
+      })
       if (tokenResult.isLeft()) return left(tokenResult.value)
 
       this.log.debug('Token created successfully during sign in', { token: tokenResult.value })
@@ -51,7 +47,7 @@ export class SignInUseCase {
     } catch (error) {
       this.log.error('Error during sign in', { error })
 
-      return left(new SignUpError())
+      return left(new UnauthorizedError())
     }
   }
 }

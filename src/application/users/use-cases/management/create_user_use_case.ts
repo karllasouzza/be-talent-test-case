@@ -14,29 +14,39 @@ export interface CreateUserInput {
 
 export type CreateUserOutput = User
 
-const log = logger.child({ useCase: 'CreateUserUseCase' })
-
 export class CreateUserUseCase {
-  constructor(private readonly repository: UsersRepository) {}
-  async execute(input: CreateUserInput): Promise<Either<CreateResourceError, CreateUserOutput>> {
+  private constructor(
+    private readonly repository: UsersRepository,
+    private readonly log = logger.child({ useCase: 'CreateUserUseCase' })
+  ) {}
+
+  public async execute({
+    fullName,
+    email,
+    password,
+    role,
+  }: CreateUserInput): Promise<Either<CreateResourceError, CreateUserOutput>> {
     try {
+      if (!fullName || !email || !password) {
+        this.log.warn('Missing required fields during user creation', { email })
+        return left(new CreateResourceError('All fields are required'))
+      }
+
       const result = await this.repository.create({
-        ...input,
-        role: input.role ?? Role.USER,
+        fullName,
+        email,
+        password,
+        role: role ?? Role.USER,
       })
 
       if (result.isLeft()) throw result
 
-      log.info('User created successfully', { result: result.value })
-
+      this.log.info('User created successfully', { result: result.value })
       return result
     } catch (error) {
-      log.error('Error creating user', { error })
+      this.log.error('Error creating user', { error })
 
-      if (error instanceof Left) {
-        return error
-      }
-
+      if (error instanceof Left) return error
       return left(new CreateResourceError())
     }
   }

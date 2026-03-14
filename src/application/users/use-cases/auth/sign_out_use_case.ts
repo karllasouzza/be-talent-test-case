@@ -1,30 +1,32 @@
+import type User from '#models/user'
+import logger from '@adonisjs/core/services/logger'
 import { left, right, type Either } from '../../../../core/either/either.ts'
 import { type DatabaseError } from '../../../../core/errors/database_error.ts'
-import { type UnauthorizedError } from '../../../../core/errors/unauthorized_error.ts'
 import { SignOutError } from '../../../../core/errors/sign_out_error.ts'
-import { RoleAbilitiesService } from '../../../../domain/users/role/role_abilities_service.ts'
-import type User from '#models/user'
-import { type UsersRepository } from '../../repositories/users_repository.ts'
-import logger from '@adonisjs/core/services/logger'
-import { email, password } from '#validators/users'
+import { type TokenRepository } from '../../repositories/token_repository.ts'
+
+type SignOutOutput = Either<DatabaseError | SignOutError, void>
 
 export class SignOutUseCase {
-  private readonly log = logger.child({ useCase: 'SignOutUseCase' })
-  constructor(private readonly usersRepository: UsersRepository) {}
+  private constructor(
+    private readonly tokenRepository: TokenRepository,
+    private readonly log = logger.child({ useCase: 'SignOutUseCase' })
+  ) {}
 
-  async execute(): Promise<Either<DatabaseError | SignOutError, void>> {
+  public async execute(user: User): Promise<SignOutOutput> {
     try {
-      const userResult = await this.usersRepository.verifyCredentials(email, password)
-      if (userResult.isLeft()) return left(userResult.value)
+      if (!user.currentAccessToken) {
+        this.log.warn('User has no active token during sign out', { userId: user.id })
+        return right(undefined)
+      }
 
-      const abilities = RoleAbilitiesService.for(userResult.value.typedRole)
-      const tokenResult = await this.usersRepository.createToken(userResult.value, abilities)
-      if (tokenResult.isLeft()) return left(tokenResult.value)
+      const result = await this.tokenRepository.deleteToken(user)
+      if (result.isLeft()) return left(result.value)
 
-      return right({})
+      this.log.debug('Token deleted successfully during sign out', { userId: user.id })
+      return right(undefined)
     } catch (error) {
       this.log.error('Error during sign out', { error })
-
       return left(new SignOutError())
     }
   }

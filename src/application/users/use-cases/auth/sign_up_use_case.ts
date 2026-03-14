@@ -1,30 +1,48 @@
+import logger from '@adonisjs/core/services/logger'
+import type User from '#models/user'
 import { left, right, type Either } from '../../../../core/either/either.ts'
 import { type DatabaseError } from '../../../../core/errors/database_error.ts'
-import { type UnauthorizedError } from '../../../../core/errors/unauthorized_error.ts'
+import { UnauthorizedError } from '../../../../core/errors/unauthorized_error.ts'
 import { SignUpError } from '../../../../core/errors/sign_up_error.ts'
 import { RoleAbilitiesService } from '../../../../domain/users/role/role_abilities_service.ts'
-import type User from '#models/user'
 import { type UsersRepository } from '../../repositories/users_repository.ts'
-import logger from '@adonisjs/core/services/logger'
+import { type TokenRepository } from '../../repositories/token_repository.ts'
+
+interface SignUpInput {
+  email: string
+  password: string
+}
+
+type SignUpOutput = Either<
+  UnauthorizedError | DatabaseError | SignUpError,
+  { user: User; token: string }
+>
 
 export class SignUpUseCase {
-  private readonly log = logger.child({ useCase: 'SignUpUseCase' })
-  constructor(private readonly usersRepository: UsersRepository) {}
+  private constructor(
+    private readonly usersRepository: UsersRepository,
+    private readonly tokenRepository: TokenRepository,
+    private readonly log = logger.child({ useCase: 'SignUpUseCase' })
+  ) {}
 
-  async execute(input: {
-    email: string
-    password: string
-  }): Promise<
-    Either<UnauthorizedError | DatabaseError | SignUpError, { user: User; token: string }>
-  > {
+  public async execute(input: SignUpInput): Promise<SignUpOutput> {
     try {
       const { email, password } = input
 
-      const userResult = await this.usersRepository.verifyCredentials(email, password)
+      if (!email || !password) {
+        this.log.warn('Email or password not provided during sign up', { email })
+        return left(new UnauthorizedError('Email and password are required'))
+      }
+
+      const userResult = await this.usersRepository.verifyCredentials({ email, password })
       if (userResult.isLeft()) return left(userResult.value)
 
       const abilities = RoleAbilitiesService.for(userResult.value.typedRole)
-      const tokenResult = await this.usersRepository.createToken(userResult.value, abilities)
+
+      const tokenResult = await this.tokenRepository.createToken({
+        user: userResult.value,
+        abilities,
+      })
       if (tokenResult.isLeft()) return left(tokenResult.value)
 
       return right({

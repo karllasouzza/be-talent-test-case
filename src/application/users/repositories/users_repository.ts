@@ -3,21 +3,42 @@ import type User from '#models/user'
 import { type DatabaseError } from '../../../core/errors/database_error.ts'
 import { type UnauthorizedError } from '../../../core/errors/unauthorized_error.ts'
 
+export interface CreateUserDataRepositoryInput {
+  fullName: string
+  email: string
+  password: string
+  role: string
+}
+export type CreateUserDataRepositoryOutput = Either<DatabaseError, User>
+
+export interface FindManyUsersRepositoryInput {
+  id?: string | undefined
+  fullName?: string | undefined
+  email?: string | undefined
+  role?: string | undefined
+}
+export type FindManyUsersRepositoryOutput = Either<DatabaseError, User[]>
+
+export interface VerifyUserCredentialsRepositoryInput {
+  email: string
+  password: string
+}
+export type VerifyUserCredentialsRepositoryOutput = Either<UnauthorizedError, User>
+
+export interface UpdateUserDataRepositoryInput {
+  id: string
+  updates: Partial<Pick<User, 'fullName' | 'email' | 'password' | 'role'>>
+}
+export type UpdateUserDataRepositoryOutput = Either<DatabaseError, User>
+
+export type DeleteUserRepositoryOutput = Either<DatabaseError, boolean>
+
 export interface UsersRepository {
-  create(
-    user: Pick<User, 'fullName' | 'email' | 'password' | 'role'>
-  ): Promise<Either<DatabaseError, User>>
-  findMany(filter: {
-    id?: string | undefined
-    fullName?: string | undefined
-    email?: string | undefined
-    role?: string | undefined
-  }): Promise<Either<DatabaseError, User[]>>
-  update(
-    id: string,
-    updates: Partial<Pick<User, 'fullName' | 'email' | 'password' | 'role'>>
-  ): Promise<Either<DatabaseError, User>>
-  delete(id: string): Promise<Either<DatabaseError, boolean>>
-  verifyCredentials(email: string, password: string): Promise<Either<UnauthorizedError, User>>
-  createToken(user: User, abilities: string[]): Promise<Either<DatabaseError, string>>
+  create(data: CreateUserDataRepositoryInput): Promise<CreateUserDataRepositoryOutput>
+  findMany(filter: FindManyUsersRepositoryInput): Promise<FindManyUsersRepositoryOutput>
+  update(data: UpdateUserDataRepositoryInput): Promise<UpdateUserDataRepositoryOutput>
+  delete(id: string): Promise<DeleteUserRepositoryOutput>
+  verifyCredentials(
+    data: VerifyUserCredentialsRepositoryInput
+  ): Promise<VerifyUserCredentialsRepositoryOutput>
 }
