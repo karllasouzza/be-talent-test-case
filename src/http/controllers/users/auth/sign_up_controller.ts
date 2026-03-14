@@ -1,12 +1,12 @@
 import { type HttpContext } from '@adonisjs/core/http'
 import UserTransformer from '#transformers/user_transformer'
 import { signUpValidator } from '#validators/auth'
-import { type SignUpUseCase } from '../../../application/users/use-cases/auth/sign_up_use_case.ts'
+import { type SignUpUseCase } from '../../../../application/users/use-cases/auth/sign_up_use_case.ts'
 
 export class SignUpController {
-  constructor(private readonly useCase: SignUpUseCase) {}
+  private constructor(private readonly useCase: SignUpUseCase) {}
 
-  async handler({ request, serialize, response }: HttpContext) {
+  public async handler({ request, serialize, response }: HttpContext) {
     const { email, password } = await request.validateUsing(signUpValidator)
 
     const result = await this.useCase.execute({ email, password })

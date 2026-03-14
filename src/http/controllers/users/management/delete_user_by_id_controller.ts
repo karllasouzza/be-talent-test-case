@@ -1,8 +1,8 @@
 import { type HttpContext } from '@adonisjs/core/http'
 import { deleteUserValidator } from '#validators/users'
-import { Ability } from '../../../domain/users/role/ability.ts'
-import { UnauthorizedError } from '../../../core/errors/unauthorized_error.ts'
-import { type DeleteUserByIdUseCase } from '../../../application/users/use-cases/management/delete_user_by_id_use_case.ts'
+import { Ability } from '../../../../domain/users/role/ability.ts'
+import { UnauthorizedError } from '../../../../core/errors/unauthorized_error.ts'
+import { type DeleteUserByIdUseCase } from '../../../../application/users/use-cases/management/delete_user_by_id_use_case.ts'
 
 export default class DeleteUserByIdController {
   constructor(private readonly useCase: DeleteUserByIdUseCase) {}

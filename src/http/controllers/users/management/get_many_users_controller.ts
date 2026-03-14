@@ -1,9 +1,9 @@
 import UserTransformer from '#transformers/user_transformer'
 import { getManyUsersValidator } from '#validators/users'
 import { type HttpContext } from '@adonisjs/core/http'
-import { Ability } from '../../../domain/users/role/ability.ts'
-import { type GetManyUsersUseCase } from '../../../application/users/use-cases/management/get_many_user_use_case.ts'
-import { UnauthorizedError } from '../../../core/errors/unauthorized_error.ts'
+import { Ability } from '../../../../domain/users/role/ability.ts'
+import { type GetManyUsersUseCase } from '../../../../application/users/use-cases/management/get_many_user_use_case.ts'
+import { UnauthorizedError } from '../../../../core/errors/unauthorized_error.ts'
 
 export default class GetManyUsersController {
   constructor(private readonly useCase: GetManyUsersUseCase) {}
