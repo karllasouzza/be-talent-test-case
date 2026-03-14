@@ -1,7 +1,7 @@
 import fc from 'fast-check'
 import { test } from '@japa/runner'
-import { Left, Right, left, right } from '../../../src/core/either/either.ts'
-import type { Either } from '../../../src/core/either/either.ts'
+import { Left, Right, left, right } from '#core/either/either'
+import type { Either } from '#core/either/either'
 
 function divide(a: number, b: number): Either<string, number> {
   if (b === 0) return left('division by zero')

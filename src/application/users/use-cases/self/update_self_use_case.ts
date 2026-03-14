@@ -1,7 +1,7 @@
-import type User from '../../../../infrastructure/persistence/lucid/models/user.ts'
+import type User from '#models/user'
 import logger from '@adonisjs/core/services/logger'
-import { type Either, left, right } from '../../../../core/either/either.ts'
-import { InvalidOldPasswordError } from '../../../../core/errors/invalid_old_password_error.ts'
+import { type Either, left, right } from '#core/either/either'
+import { InvalidOldPasswordError } from '#core/errors/invalid_old_password_error'
 
 export interface UpdateSelfInput {
   user: User

@@ -1,7 +1,7 @@
-import { type Either } from './../../../core/either/either.ts'
+import { type Either } from '#core/either/either'
 import type User from '#models/user'
-import { type DatabaseError } from '../../../core/errors/database_error.ts'
-import { type UnauthorizedError } from '../../../core/errors/unauthorized_error.ts'
+import { type DatabaseError } from '#core/errors/database_error'
+import { type UnauthorizedError } from '#core/errors/unauthorized_error'
 
 export interface CreateUserDataRepositoryInput {
   fullName: string

@@ -1,14 +1,14 @@
 import logger from '@adonisjs/core/services/logger'
 import type db from '@adonisjs/lucid/services/db'
 import User from '#models/user'
-import { DatabaseError } from '../../../../core/errors/database_error.ts'
-import { left, right } from '../../../../core/either/either.ts'
+import { DatabaseError } from '#core/errors/database_error'
+import { left, right } from '#core/either/either'
 import type {
   CreateTokenInput,
   CreateTokenOutput,
   DeleteTokenOutput,
   TokenRepository,
-} from '../../../../application/users/repositories/token_repository.ts'
+} from '#application-users/repositories/token_repository'
 
 export class TokenRepositoryLucid implements TokenRepository {
   private constructor(

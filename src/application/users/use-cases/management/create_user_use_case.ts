@@ -1,9 +1,9 @@
-import type User from '../../../../infrastructure/persistence/lucid/models/user.ts'
-import { type Either, Left, left } from '../../../../core/either/either.ts'
-import { CreateResourceError } from '../../../../core/errors/create_resource_error.ts'
 import logger from '@adonisjs/core/services/logger'
+import type User from '#models/user'
+import { type Either, Left, left } from '#core/either/either'
+import { CreateResourceError } from '#core/errors/create_resource_error'
+import { Role } from '#domain-users/role/role'
 import { type UsersRepository } from '../../repositories/users_repository.ts'
-import { Role } from '../../../../domain/users/role/role.ts'
 
 export interface CreateUserInput {
   fullName: string

@@ -1,6 +1,6 @@
 import type User from '#models/user'
-import type { Either } from '../../../core/either/either.ts'
-import type { DatabaseError } from '../../../core/errors/database_error.ts'
+import type { Either } from '#core/either/either'
+import type { DatabaseError } from '#core/errors/database_error'
 
 export interface CreateTokenInput {
   user: User

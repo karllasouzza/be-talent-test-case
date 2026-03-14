@@ -1,5 +1,5 @@
 import { type HttpContext } from '@adonisjs/core/http'
-import { type SignOutUseCase } from '../../../../application/users/use-cases/auth/sign_out_use_case.ts'
+import { type SignOutUseCase } from '#application-users/use-cases/auth/sign_out_use_case'
 
 export class SignOutController {
   private constructor(private readonly useCase: SignOutUseCase) {}

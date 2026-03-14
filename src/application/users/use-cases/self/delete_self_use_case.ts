@@ -1,5 +1,5 @@
-import type User from '../../../../infrastructure/persistence/lucid/models/user.ts'
-import { right, type Either, left } from '../../../../core/either/either.ts'
+import type User from '#models/user'
+import { right, type Either, left } from '#core/either/either'
 
 interface DeleteSelfResult {
   message: string

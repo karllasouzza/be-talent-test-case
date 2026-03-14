@@ -1,9 +1,9 @@
 import type db from '@adonisjs/lucid/services/db'
 import logger from '@adonisjs/core/services/logger'
 import User from '#models/user'
-import { DatabaseError } from '../../../../core/errors/database_error.ts'
-import { UnauthorizedError } from '../../../../core/errors/unauthorized_error.ts'
-import { left, right, type Either } from '../../../../core/either/either.ts'
+import { DatabaseError } from '#core/errors/database_error'
+import { UnauthorizedError } from '#core/errors/unauthorized_error'
+import { left, right, type Either } from '#core/either/either'
 import type {
   CreateUserDataRepositoryOutput,
   CreateUserDataRepositoryInput,
@@ -14,7 +14,7 @@ import type {
   VerifyUserCredentialsRepositoryInput,
   VerifyUserCredentialsRepositoryOutput,
   UsersRepository,
-} from '../../../../application/users/repositories/users_repository.ts'
+} from '#application-users/repositories/users_repository'
 
 export class UsersRepositoryLucid implements UsersRepository {
   private constructor(

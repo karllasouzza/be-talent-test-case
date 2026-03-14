@@ -1,9 +1,9 @@
 import logger from '@adonisjs/core/services/logger'
 import type User from '#models/user'
-import { left, right, type Either } from '../../../../core/either/either.ts'
-import { type DatabaseError } from '../../../../core/errors/database_error.ts'
-import { UnauthorizedError } from '../../../../core/errors/unauthorized_error.ts'
-import { RoleAbilitiesService } from '../../../../domain/users/role/role_abilities_service.ts'
+import { left, right, type Either } from '#core/either/either'
+import { type DatabaseError } from '#core/errors/database_error'
+import { UnauthorizedError } from '#core/errors/unauthorized_error'
+import { RoleAbilitiesService } from '#domain-users/role/role_abilities_service'
 import { type UsersRepository } from '../../repositories/users_repository.ts'
 import { type TokenRepository } from '../../repositories/token_repository.ts'
 

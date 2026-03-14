@@ -1,6 +1,6 @@
-import { type Either, Left, left } from '../../../../core/either/either.ts'
-import { CreateResourceError } from '../../../../core/errors/create_resource_error.ts'
 import logger from '@adonisjs/core/services/logger'
+import { type Either, Left, left } from '#core/either/either'
+import { CreateResourceError } from '#core/errors/create_resource_error'
 import { type UsersRepository } from '../../repositories/users_repository.ts'
 
 type DeleteUserByIdOutput = Either<CreateResourceError, boolean>

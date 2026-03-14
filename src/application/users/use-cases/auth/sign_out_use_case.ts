@@ -1,8 +1,8 @@
 import type User from '#models/user'
 import logger from '@adonisjs/core/services/logger'
-import { left, right, type Either } from '../../../../core/either/either.ts'
-import { type DatabaseError } from '../../../../core/errors/database_error.ts'
-import { SignOutError } from '../../../../core/errors/sign_out_error.ts'
+import { left, right, type Either } from '#core/either/either'
+import { type DatabaseError } from '#core/errors/database_error'
+import { SignOutError } from '#core/errors/sign_out_error'
 import { type TokenRepository } from '../../repositories/token_repository.ts'
 
 type SignOutOutput = Either<DatabaseError | SignOutError, void>

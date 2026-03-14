@@ -1,7 +1,7 @@
 import { type HttpContext } from '@adonisjs/core/http'
 import UserTransformer from '#transformers/user_transformer'
 import { signUpValidator } from '#validators/auth'
-import { type SignUpUseCase } from '../../../../application/users/use-cases/auth/sign_up_use_case.ts'
+import { type SignUpUseCase } from '#application-users/use-cases/auth/sign_up_use_case'
 
 export class SignUpController {
   private constructor(private readonly useCase: SignUpUseCase) {}

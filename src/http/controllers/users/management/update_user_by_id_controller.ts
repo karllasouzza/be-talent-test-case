@@ -1,9 +1,9 @@
 import UserTransformer from '#transformers/user_transformer'
 import { type HttpContext } from '@adonisjs/core/http'
 import { updateUserValidator } from '#validators/users'
-import { Ability } from '../../../../domain/users/role/ability.ts'
-import { UnauthorizedError } from '../../../../core/errors/unauthorized_error.ts'
-import { type UpdateUserByIdUseCase } from '../../../../application/users/use-cases/management/update_user_by_id_use_case.ts'
+import { Ability } from '#domain-users/role/ability'
+import { UnauthorizedError } from '#core/errors/unauthorized_error'
+import { type UpdateUserByIdUseCase } from '#application-users/use-cases/management/update_user_by_id_use_case'
 
 export default class UpdateUserByIdController {
   constructor(private readonly useCase: UpdateUserByIdUseCase) {}

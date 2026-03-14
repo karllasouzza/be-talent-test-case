@@ -1,7 +1,7 @@
-import type User from '../../../../infrastructure/persistence/lucid/models/user.ts'
-import { type Either, Left, left } from '../../../../core/either/either.ts'
 import logger from '@adonisjs/core/services/logger'
-import { ResourceNotFoundError } from '../../../../core/errors/resource_not_found_error.ts'
+import type User from '#models/user'
+import { type Either, Left, left } from '#core/either/either'
+import { ResourceNotFoundError } from '#core/errors/resource_not_found_error'
 import { type UsersRepository } from '../../repositories/users_repository.ts'
 
 export interface GetManyUserInput {

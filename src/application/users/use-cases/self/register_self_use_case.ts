@@ -1,7 +1,7 @@
-import User from '../../../../infrastructure/persistence/lucid/models/user.ts'
+import User from '#models/user'
 import { type AccessToken } from '@adonisjs/auth/access_tokens'
-import { type Either, left, right } from '../../../../core/either/either.ts'
-import { CreateResourceError } from '../../../../core/errors/create_resource_error.ts'
+import { type Either, left, right } from '#core/either/either'
+import { CreateResourceError } from '#core/errors/create_resource_error'
 import logger from '@adonisjs/core/services/logger'
 
 export interface RegisterSelfInput {
