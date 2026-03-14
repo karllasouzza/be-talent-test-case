@@ -6,6 +6,7 @@ import { type AccessToken, DbAccessTokensProvider } from '@adonisjs/auth/access_
 import type { Role } from '../../../../domain/users/role/role.ts'
 
 export default class User extends compose(UserSchema, withAuthFinder(hash)) {
+  static selfAssignPrimaryKey = true
   static accessTokens = DbAccessTokensProvider.forModel(User)
   declare currentAccessToken?: AccessToken
 
