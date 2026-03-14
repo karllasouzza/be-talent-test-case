@@ -6,7 +6,7 @@ router
   .group(() => {
     router
       .group(() => {
-        router.post('signup', [controllers.Users, 'store'])
+        router.post('signup', [controllers.Self, 'store'])
         router.post('login', [controllers.AccessToken, 'store'])
         router.delete('logout', [controllers.AccessToken, 'destroy']).use(middleware.auth())
       })
@@ -15,7 +15,10 @@ router
 
     router
       .group(() => {
-        router.get('/', [controllers.Users, 'showAll'])
+        router.get('/', [controllers.users.GetManyUsers, 'handler'])
+        router.post('/', [controllers.users.CreateUser, 'handler'])
+        router.put('/:id', [controllers.users.UpdateUserById, 'handler'])
+        router.delete('/:id', [controllers.users.DeleteUserById, 'handler'])
       })
       .prefix('users')
       .as('users')
