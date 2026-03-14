@@ -1,17 +1,24 @@
-import UserTransformer from "#transformers/user_transformer"
-import { HttpContext } from "@adonisjs/core/http"
-import { GetSelfUseCase } from "../../../../application/users/use-cases/self/get_self_use_case.ts"
+import { type HttpContext } from '@adonisjs/core/http'
+import UserTransformer from '#transformers/user_transformer'
+import { Ability } from '#domain-users/role/ability'
+import { type GetSelfUseCase } from '#application-users/use-cases/self/get_self_use_case'
 
 export class ShowSelfController {
   constructor(private readonly useCase: GetSelfUseCase) {}
 
-  async handle(ctx: HttpContext) {
-    const user = ctx.auth.user!
+  private checkPermissions(auth: HttpContext['auth']): boolean {
+    return auth.user!.currentAccessToken?.allows(Ability.SELF_READ) ?? false
+  }
 
-    const result = this.useCase.execute(user)
+  async handler({ auth, serialize, response }: HttpContext) {
+    if (!this.checkPermissions(auth)) {
+      return response.forbidden(`Token lacks ${Ability.SELF_READ} ability`)
+    }
 
-    return ctx.response.ok({
-      data: UserTransformer.transform(result),
-    })
+    const result = await this.useCase.execute(auth.getUserOrFail())
+
+    if (result.isLeft()) return response.notFound(result.value.message)
+
+    return response.ok(serialize({ user: UserTransformer.transform(result.value) }))
   }
 }
