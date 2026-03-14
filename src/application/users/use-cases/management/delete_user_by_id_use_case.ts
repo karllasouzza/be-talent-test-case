@@ -1,4 +1,4 @@
-import { type Either, Left, left, right } from '../../../../core/either/either.ts'
+import { type Either, Left, left } from '../../../../core/either/either.ts'
 import { CreateResourceError } from '../../../../core/errors/create_resource_error.ts'
 import logger from '@adonisjs/core/services/logger'
 import { type UsersRepository } from '../../repositories/users_repository.ts'
@@ -24,7 +24,7 @@ export class DeleteUserByIdUseCase {
 
       log.info('User deleted successfully')
 
-      return right(result.value)
+      return result
     } catch (error) {
       log.error('Error deleting user', { error })
 

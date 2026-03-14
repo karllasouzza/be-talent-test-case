@@ -1,12 +1,12 @@
 import UserTransformer from '#transformers/user_transformer'
-import { getAllUsersValidator } from '#validators/users'
+import { getManyUsersValidator } from '#validators/users'
 import { type HttpContext } from '@adonisjs/core/http'
 import { Ability } from '../../../domain/users/role/ability.ts'
-import { type GetAllUserUseCase } from '../../../application/users/use-cases/management/get_all_user_use_case.ts'
+import { type GetManyUsersUseCase } from '../../../application/users/use-cases/management/get_many_user_use_case.ts'
 import { UnauthorizedError } from '../../../core/errors/unauthorized_error.ts'
 
-export default class GetUserController {
-  constructor(private readonly useCase: GetAllUserUseCase) {}
+export default class GetManyUsersController {
+  constructor(private readonly useCase: GetManyUsersUseCase) {}
 
   private checkPermissions(auth: HttpContext['auth']) {
     if (!auth.user!.currentAccessToken?.allows(Ability.USERS_READ)) {
@@ -20,7 +20,7 @@ export default class GetUserController {
       return response.unauthorized(new UnauthorizedError())
     }
 
-    const { id, fullName, email, role } = await request.validateUsing(getAllUsersValidator)
+    const { id, fullName, email, role } = await request.validateUsing(getManyUsersValidator)
 
     const result = await this.useCase.execute({ id, fullName, email, role })
 

@@ -18,7 +18,7 @@ export const createUserValidator = vine.create({
 /**
  * Validator to use when performing user update
  */
-export const getAllUsersValidator = vine.create({
+export const getManyUsersValidator = vine.create({
   id: vine.string().uuid().optional(),
   fullName: vine.string().optional(),
   email: email().optional(),

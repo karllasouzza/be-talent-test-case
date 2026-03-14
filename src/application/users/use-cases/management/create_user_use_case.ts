@@ -1,5 +1,5 @@
 import type User from '../../../../infrastructure/persistence/lucid/models/user.ts'
-import { type Either, Left, left, right } from '../../../../core/either/either.ts'
+import { type Either, Left, left } from '../../../../core/either/either.ts'
 import { CreateResourceError } from '../../../../core/errors/create_resource_error.ts'
 import logger from '@adonisjs/core/services/logger'
 import { type UsersRepository } from '../../repositories/users_repository.ts'
@@ -29,7 +29,7 @@ export class CreateUserUseCase {
 
       log.info('User created successfully', { result: result.value })
 
-      return right(result.value)
+      return result
     } catch (error) {
       log.error('Error creating user', { error })
 
